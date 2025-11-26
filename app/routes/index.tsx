@@ -10,7 +10,6 @@ export default function Home() {
   console.log("hello from home");
   return (
     <section>
-      <h2>my app</h2>
     </section>
   );
 }
