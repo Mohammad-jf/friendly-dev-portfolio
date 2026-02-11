@@ -3,7 +3,7 @@ import type { Route } from "../+types";
 import type { Project } from "~/types";
 import { useState } from "react";
 import Pagination from "~/components/Pagination";
-
+import { AnimatePresence, motion } from "framer-motion";
 export async function loader({
   request,
 }: Route.LoaderArgs): Promise<{ projects: Project[] }> {
@@ -59,11 +59,15 @@ const Projects = ({ loaderData }: Route.ComponentProps) => {
         ))}
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2 ">
-        {currentProjects.map((project): any => (
-          <ProjectCard project={project} />
-        ))}
-      </div>
+      <AnimatePresence mode="wait">
+        <motion.div layout className="grid gap-6 sm:grid-cols-2 ">
+          {currentProjects.map((project): any => (
+            <motion.div key={project.id} layout>
+              <ProjectCard project={project} />
+            </motion.div>
+          ))}
+        </motion.div>
+      </AnimatePresence>
 
       <Pagination
         currentPage={currentPage}
